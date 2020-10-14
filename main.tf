@@ -8,9 +8,3 @@ terraform {
     encrypt        = true
   }
 }
-
-# Call the seed_module to build grafana App
-module "docker" {
-  source             = "./terraform/docker"
-  
-}
