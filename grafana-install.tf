@@ -51,16 +51,6 @@ resource "aws_instance" "grafana-instance" {
       "docker-compose up -d"
     ]
   }
-  provisioner "local-exec" {
-    command = <<EOT
-      sleep 600;
-	    >grafana-instance.ini;
-	    echo "[grafana-instance]" | tee -a grafana-instance.ini;
-	    echo "${aws_instance.grafana-instance.public_ip} ansible_user=${var.ansible_user} ansible_ssh_private_key_file=${var.private_key}" | tee -a grafana-instance.ini;
-      export ANSIBLE_HOST_KEY_CHECKING=False;
-	    ansible-playbook -u ${var.ansible_user} --private-key ${var.private_key} -i grafana-instance.ini ./terraform/playbooks/grafana_install.yml
-    EOT
-  }
 
   tags = {
     Name     = "grafana-instance"
