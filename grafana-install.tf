@@ -1,5 +1,11 @@
 // Building an Instance
 
+// Building key pair for AWS Instance
+resource "aws_key_pair" "key_pair_pem" {
+  key_name   = "ec2_key_pair"
+  public_key = file(var.public_key)
+}
+
 resource "aws_instance" "grafana-instance" {
   ami           = var.ami
   instance_type = var.instance
