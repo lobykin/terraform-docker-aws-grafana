@@ -2,7 +2,7 @@
 
 // Building key pair for AWS Instance
 resource "aws_key_pair" "key_pair_pem" {
-  key_name   = "ec2_key_pair"
+  key_name   = "grafana_key_pair"
   public_key = file(var.public_key)
 }
 
