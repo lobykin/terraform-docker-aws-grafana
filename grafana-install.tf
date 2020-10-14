@@ -139,7 +139,7 @@ resource "aws_security_group" "grafana-web-server" {
 }
 
 resource "aws_security_group" "grafana-influx-server" {
-  name        = "grafana-web-server"
+  name        = "grafana-influx-server"
   description = "Security group open port 8086"
   ingress {
     from_port   = 8086
