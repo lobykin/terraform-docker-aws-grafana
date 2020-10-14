@@ -4,7 +4,7 @@ terraform {
     bucket         = "nginx-dynamo-bucket-888"
     key            = "terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "grafana-locks"
+    dynamodb_table = "nginx-locks-2"
     encrypt        = true
   }
 }
