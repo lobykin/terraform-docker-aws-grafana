@@ -29,7 +29,7 @@ resource "aws_instance" "grafana-instance" {
     type = "ssh"
     host = self.public_ip
     private_key = file(var.private_key)
-    user        = var.ansible_user
+    user        = "ubuntu"
   }
 
   provisioner "remote-exec" {
