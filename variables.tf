@@ -15,11 +15,11 @@ variable "instance" {
 }
 
 variable "public_key" {
-  default = "~/.ssh/ec2_key_pair.pub"
+  default = "~/.ssh/grafana_key_pair.pub"
 }
 
 variable "private_key" {
-  default = "~/.ssh/ec2_key_pair.pem"
+  default = "~/.ssh/grafana_key_pair.pem"
 }
 
 variable "ami" {
