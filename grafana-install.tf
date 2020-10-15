@@ -41,7 +41,7 @@ resource "aws_instance" "grafana-instance" {
       "sudo apt-key fingerprint 0EBFCD88",
       "sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable'",
       "sudo apt-get update",
-      "sudo apt-get install docker-ce docker-ce-cli containerd.io",
+      "sudo apt-get install docker-ce docker-ce-cli containerd.io -y",
       "sudo docker run hello-world",
       "docker network create monitoring",
       "docker volume create grafana-volume",
