@@ -43,11 +43,11 @@ resource "aws_instance" "grafana-instance" {
       "sudo apt-get update",
       "sudo apt-get install docker-ce docker-ce-cli containerd.io -y",
       "sudo docker run hello-world",
-      "docker network create monitoring",
-      "docker volume create grafana-volume",
-      "docker volume create influxdb-volume",
-      "docker run --rm -e INFLUXDB_DB=$INFLUXDB_DB -e INFLUXDB_ADMIN_ENABLED=$INFLUXDB_ADMIN_ENABLED -e INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER -e INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD -e INFLUXDB_USER=$INFLUXDB_USER -e INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh",
-      "docker-compose up -d"
+      "sudo docker network create monitoring",
+      "sudo docker volume create grafana-volume",
+      "sudo docker volume create influxdb-volume",
+      "sudo docker run --rm -e INFLUXDB_DB=$INFLUXDB_DB -e INFLUXDB_ADMIN_ENABLED=$INFLUXDB_ADMIN_ENABLED -e INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER -e INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD -e INFLUXDB_USER=$INFLUXDB_USER -e INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh",
+      "sudo docker-compose up -d"
     ]
   }
 
