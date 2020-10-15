@@ -27,7 +27,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         terraform force-unlock -force 3d52085e-475a-6635-e116-072c89ccdda4  
-        terraform init -input=false
+        terraform init 
 
     - name: Terraform Plan
       env:
