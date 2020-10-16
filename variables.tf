@@ -25,3 +25,20 @@ variable "private_key" {
 variable "ami" {
   default = "ami-0817d428a6fb68645"
 }
+
+variable "influxdb_db" {
+  default = "terraform"
+}
+variable "influxdb_admin_user" {
+  default = "admin"
+}
+variable "influxdb_admin_password" {
+}
+variable "influxdb_user" {
+  default = "telegraf"
+}
+variable "influxdb_db" {
+  default = "ami-0817d428a6fb68645"
+}
+variable "influxdb_user_password" {
+}
