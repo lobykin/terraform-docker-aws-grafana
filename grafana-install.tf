@@ -31,7 +31,10 @@ resource "aws_instance" "grafana-instance" {
     private_key = file(var.private_key)
     user        = "ubuntu"
   }
-
+  provisioner "file" {
+    source      = "files/docker-compose.yml"
+    destination = "/opt/docker-compose.yml"
+  }
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get remove docker docker-engine docker.io containerd runc -y",
@@ -54,7 +57,9 @@ resource "aws_instance" "grafana-instance" {
       "pwd",
       "echo 'BREAK'",
       "sudo docker run --rm -e INFLUXDB_DB=$INFLUXDB_DB -e INFLUXDB_ADMIN_ENABLED=$INFLUXDB_ADMIN_ENABLED -e INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER -e INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD -e INFLUXDB_USER=$INFLUXDB_USER -e INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh",
-      "sudo docker-compose up -d"
+      "pwd",
+      "echo 'BREAK'",
+      "sudo docker-compose up -d -f /opt/docker-compose.yml"
     ]
   }
 
