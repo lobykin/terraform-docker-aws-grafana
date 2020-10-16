@@ -33,7 +33,7 @@ resource "aws_instance" "grafana-instance" {
   }
   provisioner "file" {
     source      = "files/docker-compose.yml"
-    destination = "/opt/docker-compose.yml"
+    destination = "/tmp/docker-compose.yml"
   }
   provisioner "remote-exec" {
     inline = [
