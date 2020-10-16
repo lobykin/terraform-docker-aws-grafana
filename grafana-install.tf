@@ -55,10 +55,10 @@ resource "aws_instance" "grafana-instance" {
       "sudo docker volume create grafana-volume",
       "sudo docker volume create influxdb-volume",
       "pwd",
-      "echo 'BREAK'",
-      "sudo docker run --rm -e INFLUXDB_DB=${var.influxdb_db} -e INFLUXDB_ADMIN_ENABLED=true -e INFLUXDB_ADMIN_USER=${var.influxdb_admin_user} -e INFLUXDB_ADMIN_PASSWORD=${var.influxdb_admin_password} -e INFLUXDB_USER=${var.influxdb_user} -e INFLUXDB_USER_PASSWORD=${var.influxdb_db} -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh",
+      "echo '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'",
+      "sudo docker run --rm --env INFLUXDB_DB=${var.influxdb_db} --env INFLUXDB_ADMIN_ENABLED=true --env INFLUXDB_ADMIN_USER=${var.influxdb_admin_user} --env INFLUXDB_ADMIN_PASSWORD=${var.influxdb_admin_password} --env INFLUXDB_USER=${var.influxdb_user} --env INFLUXDB_USER_PASSWORD=${var.influxdb_db} -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh | grep INFL",
       "pwd",
-      "echo 'BREAK'",
+      "echo '++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'",
       "sudo docker-compose -f /tmp/docker-compose.yml up -d"
     ]
   }
