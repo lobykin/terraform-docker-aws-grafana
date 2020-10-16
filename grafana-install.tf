@@ -46,7 +46,7 @@ resource "aws_instance" "grafana-instance" {
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose",
       "sudo apt-get install python-pip -y",
-      "sudo pip docker-compose",
+      "sudo pip install docker-compose",
       "sudo docker run hello-world",
       "sudo docker network create monitoring",
       "sudo docker volume create grafana-volume",
