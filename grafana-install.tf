@@ -45,11 +45,14 @@ resource "aws_instance" "grafana-instance" {
       "sudo curl -L 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose",
-      "sudo apt-get install docker-compose -y",
+      "sudo apt-get install python-pip -y",
+      "sudo pip docker-compose",
       "sudo docker run hello-world",
       "sudo docker network create monitoring",
       "sudo docker volume create grafana-volume",
       "sudo docker volume create influxdb-volume",
+      "pwd",
+      "echo 'BREAK'",
       "sudo docker run --rm -e INFLUXDB_DB=$INFLUXDB_DB -e INFLUXDB_ADMIN_ENABLED=$INFLUXDB_ADMIN_ENABLED -e INFLUXDB_ADMIN_USER=$INFLUXDB_ADMIN_USER -e INFLUXDB_ADMIN_PASSWORD=$INFLUXDB_ADMIN_PASSWORD -e INFLUXDB_USER=$INFLUXDB_USER -e INFLUXDB_USER_PASSWORD=$INFLUXDB_USER_PASSWORD -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh",
       "sudo docker-compose up -d"
     ]
