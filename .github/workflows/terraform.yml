@@ -25,12 +25,16 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_influxdb_admin_password: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
+        TF_VAR_influxdb_user_password: ${{ secrets.INFLUXDB_USER_PASSWORD }}
       run: terraform init -input=false
 
     - name: Terraform Plan
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        TF_VAR_influxdb_admin_password: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
+        TF_VAR_influxdb_user_password: ${{ secrets.INFLUXDB_USER_PASSWORD }}
       run: terraform plan
       
     - name: Terraform validation
@@ -40,10 +44,6 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        INFLUXDB_ADMIN_ENABLED: ${{ secrets.INFLUXDB_ADMIN_ENABLED }}
-        INFLUXDB_ADMIN_PASSWORD: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
-        INFLUXDB_ADMIN_USER: ${{ secrets.INFLUXDB_ADMIN_USER }}
-        INFLUXDB_DB: ${{ secrets.INFLUXDB_DB }}
-        INFLUXDB_USER: ${{ secrets.INFLUXDB_USER }}
-        INFLUXDB_USER_PASSWORD: ${{ secrets.INFLUXDB_USER_PASSWORD }}
+        TF_VAR_influxdb_admin_password: ${{ secrets.INFLUXDB_ADMIN_PASSWORD }}
+        TF_VAR_influxdb_user_password: ${{ secrets.INFLUXDB_USER_PASSWORD }}
       run: terraform apply -auto-approve -input=false
