@@ -136,23 +136,14 @@ resource "aws_security_group" "grafana-icmp" {
 
 resource "aws_security_group" "grafana-web-server" {
   name        = "grafana-web-server"
-  description = "Security group open port 3000"
+  description = "Security group for WAN traffic"
   ingress {
     from_port   = 3000
     to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  tags = {
-    Name = "grafana-web-server-vpc"
-  }
-}
-
-resource "aws_security_group" "grafana-influx-server" {
-  name        = "grafana-influx-server"
-  description = "Security group open port 8086"
-  ingress {
+    ingress {
     from_port   = 8086
     to_port     = 8086
     protocol    = "tcp"
