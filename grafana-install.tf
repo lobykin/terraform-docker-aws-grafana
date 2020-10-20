@@ -5,7 +5,7 @@ resource "aws_key_pair" "key_pair_pem" {
   key_name   = "grafana_key_pair"
   public_key = file(var.public_key)
 }
-
+// Creating EC2 instanse for Grafana and InfluxDB
 resource "aws_instance" "grafana-instance" {
   ami           = var.ami
   instance_type = var.instance
@@ -17,20 +17,19 @@ resource "aws_instance" "grafana-instance" {
     aws_security_group.grafana-icmp.id,
 	aws_security_group.grafana-web-server.id
   ]
-
   ebs_block_device {
     device_name           = "/dev/sdg"
     volume_size           = 30
     encrypted             = true
     delete_on_termination = true
   }
-
   connection {
     type = "ssh"
     host = self.public_ip
     private_key = file(var.private_key)
     user        = "ubuntu"
   }
+  // Delivering docker-compose file
   provisioner "file" {
     source      = "files/docker-compose.yml"
     destination = "/tmp/docker-compose.yml"
@@ -61,12 +60,11 @@ resource "aws_instance" "grafana-instance" {
     Name     = "grafana-instance"
     Location = "N.Virginia"
   }
-
 }
 
 resource "aws_security_group" "grafana-ssh" {
   name        = "grafana-ssh-group"
-  description = "Security group for nat instances that allows SSH and VPN traffic from internet"
+  description = "Security group for SSH "
   ingress {
     from_port   = 22
     to_port     = 22
@@ -80,7 +78,7 @@ resource "aws_security_group" "grafana-ssh" {
 
 resource "aws_security_group" "grafana-web" {
   name        = "grafana-web-group"
-  description = "Security group for WAN traffic"
+  description = "Security group for http/https traffic"
   ingress {
     from_port   = 80
     to_port     = 80
@@ -130,7 +128,7 @@ resource "aws_security_group" "grafana-icmp" {
 
 resource "aws_security_group" "grafana-web-server" {
   name        = "grafana-web-server"
-  description = "Security group for WAN traffic"
+  description = "Security group for grafana interface and influxdb server"
   ingress {
     from_port   = 3000
     to_port     = 3000

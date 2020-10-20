@@ -1,6 +1,9 @@
 name: Deploying Grafana
 
-on: [push]
+on:
+  push:
+   tags:        
+     - v1.*
 
 jobs:
   terraform_apply:
@@ -11,7 +14,7 @@ jobs:
     - name: Verify Terraform version
       run: terraform --version
 
-    - name: Generate Key Pair
+    - name: Generate Key Pair for EC2 host to access
       env:
         EC2_KEY_PEM_64: ${{ secrets.EC2_KEY_PEM_64 }}
         EC2_KEY_PUB_64: ${{ secrets.EC2_KEY_PUB_64 }}
