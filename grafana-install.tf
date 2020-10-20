@@ -35,6 +35,8 @@ resource "aws_instance" "grafana-instance" {
     source      = "files/docker-compose.yml"
     destination = "/tmp/docker-compose.yml"
   }
+
+  // Configuring packages and containers on remote host // DB Test curl -sL -I localhost:8086/ping // 
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get remove docker docker-engine docker.io containerd runc -y",
@@ -50,8 +52,7 @@ resource "aws_instance" "grafana-instance" {
       "sudo docker network create monitoring",
       "sudo docker volume create grafana-volume",
       "sudo docker volume create influxdb-volume",
-      "sudo docker run --rm --env INFLUXDB_DB=${var.influxdb_db} --env INFLUXDB_ADMIN_ENABLED=true --env INFLUXDB_ADMIN_USER=${var.influxdb_admin_user} --env INFLUXDB_ADMIN_PASSWORD=${var.influxdb_admin_password} --env INFLUXDB_USER=${var.influxdb_user} --env INFLUXDB_USER_PASSWORD=${var.influxdb_db} -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh | grep INFL",
-      "echo '+++++++++++++++++++++++++++++++++++++++${var.influxdb_db}+++++++++++++++++++++++++++++++++++++++++++++++'",
+      "sudo docker run --rm --env INFLUXDB_DB=${var.influxdb_db} --env INFLUXDB_ADMIN_ENABLED=true --env INFLUXDB_ADMIN_USER=${var.influxdb_admin_user} --env INFLUXDB_ADMIN_PASSWORD=${var.influxdb_admin_password} --env INFLUXDB_USER=${var.influxdb_user} --env INFLUXDB_USER_PASSWORD=${var.influxdb_user_password} -v influxdb-volume:/var/lib/influxdb influxdb /init-influxdb.sh | grep INFL",
       "sudo docker-compose -f /tmp/docker-compose.yml up -d"
     ]
   }
